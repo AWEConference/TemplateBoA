@@ -1,0 +1,109 @@
+\label{awec:03-presenter}
+\abstractpage%
+%
+%
+% ------------------------------------------
+% PRESENTER SECTION
+%
+{% include the presenter photo here:
+\label{photo:03-presenter}
+\includegraphics[height=3cm]{figures/AWEC03_Presenter.pdf}
+}
+%
+{% incldue the presenter name, affiliation, address, email, url here:
+{\bfseries Firstname4 Lastname4}\\[\authorvsep]
+%
+Jobfunction\\
+Labname\\[\addressvsep]
+Facultyname\\
+Universityname\\
+Streetandnumber\\
+Postalcodeandcity\\
+Country\\[\addressvsep]
+%
+\href{mailto:firstname4.lastname4@university.edu}{firstname4.lastname4@university.edu}
+\href{http://www.university.edu}{www.university.edu}
+}
+%
+{% Include the affiliated institute logo here:
+\includegraphics[width=4cm]{figures/AWEC03_Logo.pdf}
+}
+%
+% end of the presenter section
+%
+%
+%
+% ------------------------------------------
+% TITLE SECTION
+% include your title here:
+{
+{\Large\bfseries
+% the title of your abstract goes here:
+And another title
+}\\[2mm]
+% end of the title section
+%
+%
+%
+% ------------------------------------------
+% AUTHOR SECTION
+% include your author(s) here:
+{\bfseries
+\index{Lastname4, Firstname4|textbf}
+\index{Lastname5, Firstname5}
+\index{Lastname6, Firstname6}
+Firstname4 Lastname4, Firstname5 Lastname5, Firstname6 Lastname6
+}\\
+% end of the author section
+%
+%
+%
+% ------------------------------------------
+% INSTITUTE SECTION
+% include your institution(s) here:
+Labname, Facultyname, Universityname
+}
+% end of the institute section
+%
+%
+%
+{
+\begin{multicols}{2}
+%
+%
+%
+% ------------------------------------------
+% ABSTRACT TEXT SECTION:
+% include your abstract text here:
+%
+This template covers only the abstract body, with optional figure and a concise list of references, but excluding the title, author(s) and affiliation(s). The abstract body is set in a two column layout and the template is constructed in such a way that the available space for text matches the layout in the printed book of abstracts. The speaker profile, which is set in an extra (third) column, is not part of this template. Headings and other structuring elements, such as long bullet lists or long numbered lists, as well as text ornamentations should be avoided because these generally consume valuable space and impact a uniform appearance. Remember that the purpose of the printed abstract is not to pass the peer-review process but to provide a concise and specific showcase of the presented work.
+
+\begin{center}
+\includegraphics[width=\columnwidth]{figures/AWEC01_Image.png}
+\end{center}
+\awecaption{Include a caption here [2].}
+\vspace{.2cm}
+
+The abstract can include a concise list of references. For simplicity and because of the required conciseness, we have not aimed at the use of bibtex or biblatex, but for manual implementation. References are included in the text as numbers enclosed in square brackets [1] or [2], or, combined as [1,2]. The list of references should be formatted as shown below.
+%
+% end of the abstract text section
+%
+% ------------------------------------------
+% REFERENCES SECTION
+% include your references here:
+
+\vspace{\awereferencesskip}
+\awereferences{
+[1] LastName1 A.B., LastName2 C.D.: PublicationTitle. JournalName, Vol, No, PageA--PageB (Year)
+
+[2] LastName1 A.B., LastName2, C.D.: PublicationTitle. BookName. Publisher (Year)
+
+}
+%
+%% end of the references section
+%
+%
+%
+\mbox{}
+\end{multicols}
+}

@@ -1,0 +1,115 @@
+\documentclass[8pt]{extreport} % add option twoside for printed book
+%
+% Airborne Wind Energy Conference 20xx
+% Book of Abstracts
+%
+% Editors:
+% Assistant:
+% Layout:    derived from the layout of the AWEC 2013 book of abstracts, by Birte Leisten, einnull.berlin Printproduktion
+%
+% Page layout with circumferential bleed of 3 mm
+\usepackage[table]{xcolor}
+\usepackage{calc}
+\newlength{\bleed}
+\setlength{\bleed}{0mm} % modify bleed (online: 0mm, print: 3mm)
+\usepackage[%
+papersize={148mm+2\bleed,210mm+2\bleed},
+landscape,
+inner=65mm+\bleed,
+outer=8mm+\bleed,
+marginparwidth=50mm,
+top=16mm+\bleed,
+bottom=5mm+\bleed,           %8mm
+footskip=0mm]{geometry}    %3.8mm
+%\usepackage{showframe}
+%
+% Colored top margin (needs to be included from toplevel tex-file)
+\usepackage[all,placement=top]{background}
+%\usepackage[none]{hyphenat}
+
+\include{settings}
+
+\begin{document}
+%
+\newgeometry{% Issues \clearpage, so must be before \chapter
+marginparwidth=0mm,
+top=16mm+\bleed,
+inner=8mm+\bleed,
+outer=8mm+\bleed,
+bottom=8mm+\bleed,
+footskip=3.0mm} %3.8mm
+\fancyhfoffset[E,O]{0pt}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\session{Start}{white}
+\pagenumbering{gobble}
+\subimport{cover/}{coverfront.tex}         % Disable for print -> use standalone cover instead
+\subimport{photopages/}{floorplan_building.tex}
+\pagenumbering{arabic}
+\subimport{preface/}{preface.tex}
+\subimport{schedule/}{scheduleDefinitions.tex}
+\newcommand{\talk}[1]{}
+\newcommand{\pagelabel}{\normalsize \textbf{Page}}
+\newcommand{\onlyBook}[1]{#1}
+\newcommand{\onlyProgram}[1]{}
+\subimport{schedule/}{scheduleTuesday.tex}\newpage
+\subimport{schedule/}{scheduleWednesday.tex}\newpage
+\restoregeometry
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Conference Organization
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\session{Introduction}{white} \phantomsection\label{contents:Introduction}
+\subimport{AWEC00/}{AWEC00_Editors.tex}
+\subimport{sponsors/}{sponsors.tex}
+\subimport{committees/}{committees.tex}
+\subimport{panelists/}{panelists.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Dedication (optional)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\session{Dedication}{white}
+%\vspace*{5pt} % required only for photopage at chapter start
+%\subimport{photopages/}{firstnamelastname.tex}
+%\subimport{dedication/}{dedication.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abstracts and photopages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\session{Auditorium A}{\chaptercolor} \phantomsection\label{contents:Abstracts}
+\vspace*{5pt} % required only for photopage at chapter start
+\subimport{photopages/}{company01.tex}
+\subimport{AWEC01/}{AWEC01_Presenter.tex}
+
+\session{Auditorium B}{\chaptercolor}
+%\vspace*{5pt} % required only for photopage at chapter start
+\subimport{AWEC03/}{AWEC03_Presenter.tex}
+\subimport{AWEC05/}{AWEC05_Presenter.tex}
+
+\newgeometry{% Issues \clearpage, so must be before \chapter
+marginparwidth=0mm,
+top=12mm+\bleed,
+inner=8mm+\bleed,
+outer=8mm+\bleed,
+bottom=8mm+\bleed,
+footskip=3.0mm} % 3.8mm
+\fancyhfoffset[E,O]{0pt}
+\session{\indexname}{\chaptercolor}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Back matter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make author name index                     http://en.wikibooks.org/wiki/LaTeX/Indexing
+%Author index
+\vspace{-6pt}
+\begin{multicols*}{4} \phantomsection\label{contents:Index}
+\printindex
+\end{multicols*}
+\newpage
+\subimport{credits/}{credits.tex}
+\restoregeometry                            % Issues \clearpage -> Disable for print (use standalone cover instead)
+\pagenumbering{gobble}
+\subimport{photopages/}{floorplan_city.tex}
+\subimport{cover/}{coverback.tex}           % Make back cover   -> Disable for print (use standalone cover instead)
+\end{document}

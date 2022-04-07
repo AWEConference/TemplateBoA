@@ -1,0 +1,12 @@
+\phantomsection\label{photo:company01}
+\begin{tikzpicture}[remember picture, overlay, anchor=north west,inner sep=0pt, outer sep=0pt]
+   \draw ([shift={(\bleed-3mm,-\bleed+3mm)}] current page.north west) node {\includegraphics[width=216mm]{figures/company01.pdf}};
+   \captionbaselines
+\end{tikzpicture}
+
+\photocaption{-10mm}{\fill}{black}% oneside mode OR {twoside mode AND odd  page}
+             {-10mm}{\fill}{black}%                    twoside mode AND even page
+             {Include a short caption here from the Latex wrapper file.}
+
+
+\newpage

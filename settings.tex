@@ -1,0 +1,415 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usetikzlibrary{calc}
+
+\newlength{\bleedZ}
+\setlength{\bleedZ}{\bleed-1.5mm} % to avoid corner point (after cut)
+%
+% Generates the colored margin at the top of each page
+\backgroundsetup{
+scale=1,
+angle=0,
+color=black,
+opacity=1,
+contents={%
+\begin{tikzpicture}[overlay, remember picture]
+%
+% Top color bar
+\path[fill=\chaptercolor] (current page.north west) rectangle (\paperwidth,-7.8mm-\bleed); % bar heigth
+%
+% layout guides (works only with \bleed set to 3mm)
+%
+%    \begin{tikzpicture}[remember picture, overlay]
+%         \foreach \x in {0, 8,65,131,136,202,210} {
+%             \draw[help lines,gray!20] ([xshift=\x mm+\bleed] current page.south west) --([xshift=\x mm+\bleed] current page.north west);
+%         }
+%         \foreach \y in {0,4.2,87.5,92,95.8, 98,117,131,140,148} {
+%             \draw[help lines,gray!20] ([yshift=\y mm+\bleed] current page.south west) --([yshift=\y mm+\bleed] current page.south east);
+%         }
+%    \end{tikzpicture}
+%
+% bleed marks
+%
+    \begin{tikzpicture}[remember picture, overlay]
+         % vertical bleed ticks
+         \draw[help lines] ([xshift= \bleed] current page.south west) --([xshift= \bleed,yshift= \bleedZ] current page.south west);
+         \draw[help lines] ([xshift= \bleed] current page.north west) --([xshift= \bleed,yshift=-\bleedZ] current page.north west);
+         \draw[help lines] ([xshift=-\bleed] current page.south east) --([xshift=-\bleed,yshift= \bleedZ] current page.south east);
+         \draw[help lines] ([xshift=-\bleed] current page.north east) --([xshift=-\bleed,yshift=-\bleedZ] current page.north east);
+         % horizontal bleed ticks
+         \draw[help lines] ([yshift= \bleed] current page.south west) --([yshift= \bleed,xshift= \bleedZ] current page.south west);
+         \draw[help lines] ([yshift= \bleed] current page.south east) --([yshift= \bleed,xshift=-\bleedZ] current page.south east);
+         \draw[help lines] ([yshift=-\bleed] current page.north west) --([yshift=-\bleed,xshift= \bleedZ] current page.north west);
+         \draw[help lines] ([yshift=-\bleed] current page.north east) --([yshift=-\bleed,xshift=-\bleedZ] current page.north east);
+    \end{tikzpicture}
+\end{tikzpicture}
+}}
+%
+% Horizontal caption base lines (used in photopages)
+\newcommand{\captionbaselines}%
+{%
+%\draw[help lines,gray!20] ([yshift=10.5 mm+\bleed] current page.south west) --([yshift=10.5 mm+\bleed] current page.south east);
+%\draw[help lines,gray!20] ([yshift=135.5 mm+\bleed] current page.south west) --([yshift=135.5 mm+\bleed] current page.south east);
+\begin{tikzpicture}[remember picture, overlay]
+    % vertical bleed ticks
+    \draw[help lines] ([xshift= \bleed] current page.south west) --([xshift= \bleed,yshift= \bleedZ] current page.south west);
+    \draw[help lines] ([xshift= \bleed] current page.north west) --([xshift= \bleed,yshift=-\bleedZ] current page.north west);
+    \draw[help lines] ([xshift=-\bleed] current page.south east) --([xshift=-\bleed,yshift= \bleedZ] current page.south east);
+    \draw[help lines] ([xshift=-\bleed] current page.north east) --([xshift=-\bleed,yshift=-\bleedZ] current page.north east);
+    % horizontal bleed ticks
+    \draw[help lines] ([yshift= \bleed] current page.south west) --([yshift= \bleed,xshift= \bleedZ] current page.south west);
+    \draw[help lines] ([yshift= \bleed] current page.south east) --([yshift= \bleed,xshift=-\bleedZ] current page.south east);
+    \draw[help lines] ([yshift=-\bleed] current page.north west) --([yshift=-\bleed,xshift= \bleedZ] current page.north west);
+    \draw[help lines] ([yshift=-\bleed] current page.north east) --([yshift=-\bleed,xshift=-\bleedZ] current page.north east);
+\end{tikzpicture}
+}
+%
+% Color definitions
+
+%NOTE Colours seem to be defned elsewhere, unable to swap round Cayley and Wilson.....
+\definecolor{colorpre}{RGB}{230, 230, 230} % schedule
+\definecolor{colorBlyth}{RGB}{191,229,243}      % Blyth       : Auditorium B
+\definecolor{colorMelville}{RGB}{242,219,233}   % Melville    : Poster area
+\definecolor{colorWilson}{RGB}{253, 246, 166}     % Cayley      : Auditorium C
+\definecolor{colorAuditorium}{RGB}{163,234,193} % Auditorium
+\definecolor{colorCayley}{RGB}{212, 211, 243}     % Wilson      : Conference room 6&7
+
+\usepackage{etoolbox}
+\newcommand{\basecolor}{%
+    \ifcase\arabic{chapter}\or colorpre\or colorpre\or colorAuditorium\or colorBlyth\or colorCayley\or colorWilson\or colorAuditorium\or colorMelville\or colorBlyth\or colorCayley\or colorWilson\or colorAuditorium\or colorMelville\or colorBlyth\or colorCayley\or colorWilson\or colorpre\fi% define colors per chapter
+}
+
+%%% FROM 2017 BOOK ===================================
+%\definecolor{colorpre}{RGB}{230, 230, 230} % schedule
+%\definecolor{colorIH}{RGB}{163, 234, 193} % Loyd
+%\definecolor{colorICS}{RGB}{242, 219, 233} % Prometheus
+%\definecolor{colorMSE}{RGB}{191, 229, 243} % Ockels
+%\definecolor{colorCO}{RGB}{253, 246, 166} % Payne
+%\definecolor{colorBD}{RGB}{212, 211, 243} % Hardham
+%\definecolor{colorHPM}{RGB}{255, 212, 178} % Dattler
+%\definecolor{colorSC}{RGB}{242, 219, 233} % Prometheus
+%\definecolor{colorRCW}{RGB}{191, 229, 243} % Ockels
+%\definecolor{colorAMS}{RGB}{253, 246, 166} % Payne
+%\definecolor{colorFN}{RGB}{212, 211, 243} % Hardham
+%\definecolor{colorCD}{RGB}{230, 230, 230} % author index
+%\definecolor{colorPOST}{RGB}{212,211,243}% Posters
+%\definecolor{colorthirdteen}{RGB}{208,245,229}%
+%\definecolor{colorfourteen}{RGB}{217,243,253}%
+%\definecolor{colorfifteen}{RGB}{217,243,253}   % <<< expand list here for more chapters
+%                                               % !!! if not enough colors provided, package xcolor throws exception
+%\usepackage{etoolbox}
+%\newcommand{\basecolor}{%
+%    \ifcase\arabic{chapter}\or colorpre\or colorpre\or colorIH\or colorICS\or colorMSE\or colorCO\or colorBD\or colorHPM\or colorSC\or colorRCW\or colorAMS\or colorFN\or colorCD\or colorPOST\or colorthirdteen\or colorfourteen\or colorfifteen\fi% define colors per chapter
+%}
+ %%%====================================================FROM 2017 BOOK
+
+
+%\newcommand{\chaptercolor}{\basecolor!20!white}% makes it pastell
+\newcommand{\chaptercolor}{\basecolor}
+
+%
+% Remove chapter heading
+\usepackage[explicit]{titlesec}
+\titlespacing*{\chapter}{0pt}{-45.7pt}{0pt} % non-zero value adjusts vertical spacing when new chapter starts
+\titleformat{\chapter}[display]
+  {}{}{0pt}{\Huge}
+\titleformat{\part}
+  {}{}{0pt}{}
+
+%
+% New chapter definition
+\newcommand{\session}[2]{%
+\chapter{#1\hspace{0.7mm}\crule[#2]{}}
+%\vspace*{5pt} % required to counteract \chapter vspacing
+}
+
+%
+% Table of content
+\usepackage{tocloft}
+\newcommand{\crule}[2][black]{\textcolor{#1}{\rule[-.2\baselineskip]{\baselineskip}{\baselineskip}}}
+\renewcommand{\contentsname}{}
+\setlength{\cftbeforetoctitleskip}{-3em}
+\setcounter{tocdepth}{0}
+% remove chapter numbers (source: http://tex.stackexchange.com/questions/71123/remove-section-number-toc-entries-with-tocloft)
+\makeatletter
+\renewcommand{\cftchappresnum}{\begin{lrbox}{\@tempboxa}}
+\renewcommand{\cftchapaftersnum}{\end{lrbox}}
+\makeatother
+\setlength{\cftchapnumwidth}{0pt}
+\renewcommand{\cftchapfont}{\hfill\bfseries}
+\renewcommand{\cftchapleader}{}
+
+%
+% Document font
+\usepackage[default]{sourcesanspro}
+%\usepackage[default,tabular]{sourcesanspro}
+\usepackage[T1]{fontenc}
+\usepackage{eurosym}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{sansmath}
+\sansmath
+
+\usepackage{multicol}
+\setlength{\columnsep}{5mm}
+
+\usepackage{graphicx}
+\usepackage{transparent}
+\usepackage{parskip}
+\setlength{\parskip}{0pt} % 1ex plus 0.5ex minus 0.2ex}
+\setlength{\parindent}{0pt}
+\usepackage{import}
+\usepackage{ifoddpage}
+\newcommand{\abstractlinespacing}{\setlength{\parskip}{.15cm}}
+\newcommand{\regularlinespacing}{\setlength{\parskip}{0cm}}
+
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*} % left align list items
+\setlist[enumerate]{leftmargin=*} % left align list items
+\usepackage{tcolorbox}
+
+\newcommand{\squishlist}{
+   \begin{list}{$\bullet$}
+    { \setlength{\itemsep}{0pt}      \setlength{\parsep}{0pt}
+      \setlength{\topsep}{0pt}       \setlength{\partopsep}{0pt}
+      \setlength{\leftmargin}{1.5em} \setlength{\labelwidth}{1em}
+      \setlength{\labelsep}{0.5em} } }
+
+\newcommand{\squishend}{
+    \end{list}  }
+
+\providecommand\phantomsection{}
+\usepackage[colorlinks,
+			urlcolor=blue,
+			citecolor=black,
+			linkcolor=blue,
+			bookmarks=false,
+	        hypertexnames=true, hidelinks=true]{hyperref} % for printing add: hidelinks=true
+\hypersetup{pdfauthor={Roland Schmehl, Oliver Tulloch},
+            pdfsubject={Airborne Wind Energy},
+            pdftitle={Airborne Wind Energy Conference 2019 Book of Abstracts},
+            pdfkeywords={Airborne Wind Energy} {Kite Power} {AWEC} {2019} {Airborne Wind Energy Conference} {Glasgow} {Strathclyde} {University} {Technology} {Germany} {AWESCO} {Makani} {Ampyx} {Enerkite} {TwingTec} {eKite} {enerate}}
+
+\usepackage[a-1b]{pdfx} % for archival purposes. Will ignore hypersetup
+
+%\usepackage{makeidx}
+\usepackage{imakeidx}
+\usepackage[columns=3,initsep=0pt,justific=RaggedRight]{idxlayout}
+\renewcommand{\indexname}{Author index}
+\makeatletter
+\renewenvironment{theindex}
+               {\section*{\indexname}%
+                \@mkboth{\MakeUppercase\indexname}%
+                        {\MakeUppercase\indexname}%
+                \thispagestyle{plain}\parindent\z@
+                \parskip\z@ \@plus .3\p@\relax
+                \columnseprule \z@
+                \columnsep 35\p@
+                \let\item\@idxitem}
+               {}
+\makeatother
+\makeindex
+%\makeindex[options=-s ./index] % use with \usepackage{makeidx}
+% or use  "makeindex -s index.ist book" to generate index file
+
+%
+% Figure captions
+%\usepackage{caption}
+%\captionsetup[figure]{labelformat=empty,font={small,it},justification=raggedright,skip=3pt}
+\newcommand{\awecaption}[1]{{\small\itshape #1\par}}
+
+%
+% Marginnotes
+\usepackage[fulladjust]{marginnote}
+%\renewcommand{\marginnotevadjust}{-3mm} % Globally adjusts top margin in marginnote !!! PROBLEM !!! -> lifts up entire margin
+\renewcommand{\marginnotevadjust}{-\baselineskip}
+\newlength{\logoboxheight}
+
+%
+% Center environment without vertical space
+\newenvironment{nscenter}
+ {\parskip=0pt\par\nopagebreak\centering}
+ {\par\noindent\ignorespacesafterend}
+
+%
+% Set page numer on right side of footer !!!! WRONG !!!!
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%
+    \renewcommand{\headrulewidth}{0pt}%
+    \fancyhf{} %
+    \fancyfoot[LE,RO]{\vspace{-5pt}\thepage}% the vspace lifts the page number back to the text area
+}
+\pagestyle{plain}
+
+\definecolor{darkgray}{gray}{0.3}
+% commands for comments or todo notices
+\newcommand{\ptitle}[1]%
+{% comment out following line to remove all comments in document
+%\newline\textcolor{darkgray}{#1}
+%\newline\itshape\textcolor{black}{#1}
+}%
+\newcommand{\ppage}[1]%
+{% comment out following line to remove all comments in document
+#1
+}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% http://tex.stackexchange.com/questions/195832/replace-several-letters-in-math-font
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareUnicodeCharacter{20AC}{\euro}
+
+\DeclareSymbolFont{Greekletters}{OT1}{iwona}{m}{n}
+\DeclareSymbolFont{greekletters}{OML}{iwona}{m}{it}
+\DeclareMathSymbol{\Delta}{\mathord}{Greekletters}{"01}
+\DeclareMathSymbol{\Theta}{\mathord}{Greekletters}{"02}
+\DeclareMathSymbol{\Lambda}{\mathord}{Greekletters}{"03}
+\DeclareMathSymbol{\Xi}{\mathord}{Greekletters}{"04}
+\DeclareMathSymbol{\Pi}{\mathord}{Greekletters}{"05}
+\DeclareMathSymbol{\Sigma}{\mathord}{Greekletters}{"06}
+\DeclareMathSymbol{\Upsilon}{\mathord}{Greekletters}{"07}
+\DeclareMathSymbol{\Phi}{\mathord}{Greekletters}{"08}
+\DeclareMathSymbol{\Psi}{\mathord}{Greekletters}{"09}
+\DeclareMathSymbol{\Omega}{\mathord}{Greekletters}{"0A}
+
+\DeclareMathSymbol{\alpha}{\mathord}{greekletters}{"0B}
+\DeclareMathSymbol{\beta}{\mathord}{greekletters}{"0C}
+\DeclareMathSymbol{\gamma}{\mathord}{greekletters}{"0D}
+\DeclareMathSymbol{\delta}{\mathord}{greekletters}{"0E}
+\DeclareMathSymbol{\epsilon}{\mathord}{greekletters}{"0F}
+\DeclareMathSymbol{\zeta}{\mathord}{greekletters}{"10}
+\DeclareMathSymbol{\eta}{\mathord}{greekletters}{"11}
+\DeclareMathSymbol{\theta}{\mathord}{greekletters}{"12}
+\DeclareMathSymbol{\iota}{\mathord}{greekletters}{"13}
+\DeclareMathSymbol{\kappa}{\mathord}{greekletters}{"14}
+\DeclareMathSymbol{\lambda}{\mathord}{greekletters}{"15}
+\DeclareMathSymbol{\mu}{\mathord}{greekletters}{"16}
+\DeclareMathSymbol{\nu}{\mathord}{greekletters}{"17}
+\DeclareMathSymbol{\xi}{\mathord}{greekletters}{"18}
+\DeclareMathSymbol{\pi}{\mathord}{greekletters}{"19}
+\DeclareMathSymbol{\rho}{\mathord}{greekletters}{"1A}
+\DeclareMathSymbol{\sigma}{\mathord}{greekletters}{"1B}
+\DeclareMathSymbol{\tau}{\mathord}{greekletters}{"1C}
+\DeclareMathSymbol{\upsilon}{\mathord}{greekletters}{"1D}
+\DeclareMathSymbol{\phi}{\mathord}{greekletters}{"1E}
+\DeclareMathSymbol{\chi}{\mathord}{greekletters}{"1F}
+\DeclareMathSymbol{\psi}{\mathord}{greekletters}{"20}
+\DeclareMathSymbol{\omega}{\mathord}{greekletters}{"21}
+\DeclareMathSymbol{\varepsilon}{\mathord}{greekletters}{"22}
+\DeclareMathSymbol{\vartheta}{\mathord}{greekletters}{"23}
+\DeclareMathSymbol{\varpi}{\mathord}{greekletters}{"24}
+\DeclareMathSymbol{\varrho}{\mathord}{greekletters}{"25}
+\DeclareMathSymbol{\varsigma}{\mathord}{greekletters}{"26}
+\DeclareMathSymbol{\varphi}{\mathord}{greekletters}{"27}
+
+\DeclareSymbolFont{arrows}{OMS}{iwona}{m}{n}
+\DeclareMathSymbol{\rightarrow}{\mathrel}{arrows}{"21} \let\to=\rightarrow
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Presenter portrait in inner margin
+\reversemarginpar
+\newlength{\authorvsep}
+\setlength{\authorvsep}{1.2mm} % length separating author name and address
+\newlength{\addressvsep}
+\setlength{\addressvsep}{3mm}  % length separating author affiliation and address
+%
+% Macro for typesetting the standard abstract
+% argument #1: presenter profile photo top
+% argument #2: presenter profile name + address middle
+% argument #3: presenter profile logo bottom
+% argument #4: abstract title
+% argument #5: abstract text
+\newcommand{\abstractpage}[5]
+{
+\marginnote{
+\begin{nscenter}
+#1
+\end{nscenter}
+}%
+\marginnote{
+\begin{nscenter}
+#2
+\end{nscenter}
+%}[36.8mm]% vertical distance author name
+}[35mm]% vertical distance author name
+%
+% Presenter logo cluster
+\def\logobox{%
+\vbox{%
+\begin{nscenter}
+#3
+\end{nscenter}
+}}
+\settoheight{\logoboxheight}{\logobox}
+\setlength{\logoboxheight}{120mm-\logoboxheight} % +.3\baselineskip (to correct for depth) +4mm (to lift logo)
+%
+\marginnote{
+\begin{nscenter}
+\logobox
+\end{nscenter}
+}[\logoboxheight]% vertical distance author name
+% Abstract
+\begin{nscenter}
+#4
+\end{nscenter}
+%
+%\vspace{\baselineskip}
+%
+\vspace{-.4cm}
+\abstractlinespacing
+#5
+\regularlinespacing
+%
+\vfill
+%
+%\marginnote{\logobox}[-\logoboxheight]%
+\newpage
+}
+
+% Bibliographic references
+\newlength{\awereferencesskip}
+\setlength{\awereferencesskip}{2mm}
+%
+% Macro for typesetting the list of references
+% argument #1: reference list, individual references separated by empty line
+\newcommand{\awereferences}[1]%
+{\small\itshape
+References:
+
+#1
+\vfill
+}
+
+%
+% Macro for captions that position depending on odd and even page placement
+%
+% Example 1: positioning at bottom of page
+%\photocaption{\fill}{\fill}{white}% oneside mode OR {twoside mode AND odd page}
+%             {\fill}{0mm}{white}%   twoside mode AND even page
+%             {Caption text.}
+%
+\newcommand{\photocaption}[7]%
+{%
+\checkoddpage\ifoddpageoroneside
+% oneside mode OR {twoside mode AND odd page}
+\vspace*{#1}
+\parbox{\linewidth-#2}{\begin{flushright}\color{#3}\itshape #7\end{flushright}}\hspace*{#2} % regular case: caption flushed to right side
+\vspace{5mm}
+\else
+% twoside mode AND even page
+\vspace*{#4}
+\hspace*{#5}\parbox{\linewidth-#5}{\begin{flushleft}\color{#6}\itshape #7\end{flushleft}}   % regular case: caption flushed to left side
+\vspace{2.3mm}
+\fi
+}
+
+\newcommand{\captionbox}[5]%
+{%
+	\transparent{#4}
+	\begin{tcolorbox}[standard jigsaw,width=#1,arc=0mm,boxrule=0pt,left=1pt,top=1pt,right=1pt,bottom=1pt,colback=#2]
+		\texttransparent{1.0}{\textcolor{#3}{#5}}
+	\end{tcolorbox}
+}

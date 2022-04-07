@@ -1,0 +1,45 @@
+%
+% For the next edition or the conference: generate table rows with a Latex command to separate content from layout
+% For an example how to do this look at the command \abstractpage
+%
+
+\definecolor{colorFoyer}{RGB}{230,246,229}      % Foyer       : lunch/coffee/exhibition space
+\definecolor{colorBlyth}{RGB}{191,229,243}      % Blyth       : Auditorium B
+\definecolor{colorMelville}{RGB}{242,219,233}   % Melville    : Poster area
+\definecolor{colorCayley}{RGB}{212,211,243}     % Cayley      : Auditorium C
+\definecolor{colorAuditorium}{RGB}{163,234,193} % Auditorium
+\definecolor{colorWilson}{RGB}{253,246,166}     % Wilson      : Conference room 6&7
+\definecolor{colorBaird}{RGB}{255,212,124}      % Baird       : Conference room 6&7  ffd47c
+\definecolor{colorTallShip}{RGB}{255, 212, 178} % Tall Ship   : Dinner venue
+\definecolor{colorCityChambers}{RGB}{255, 204, 204}
+\definecolor{colorGray}{RGB}{190, 190, 190}
+
+
+% Color definitions for cells
+\newcommand{\graycell}{\cellcolor{colorGray}}
+\newcommand{\Blythcell}{\cellcolor{colorBlyth}}
+\newcommand{\Cayleycell}{\cellcolor{colorCayley}}
+\newcommand{\Wilsoncell}{\cellcolor{colorWilson}}
+\newcommand{\Bairdcell}{\cellcolor{colorBaird}}
+\newcommand{\Melvillecell}{\cellcolor{colorMelville}}
+\newcommand{\Auditoriumcell}{\cellcolor{colorAuditorium}}
+\newcommand{\Tallshipcell}{\cellcolor{colorTallShip}}
+\newcommand{\CityChamberscell}{\cellcolor{colorCityChambers}}
+\newcommand{\Foyercell}{\cellcolor{colorFoyer}}
+
+\newcommand{\Bcell}{\Blythcell}
+\newcommand{\Ccell}{\Cayleycell}
+\newcommand{\Wcell}{\Wilsoncell}
+\newcommand{\Fcell}{\Foyercell}
+\newcommand{\Mcell}{\Melvillecell}
+\newcommand{\Acell}{\Auditoriumcell}
+\newcommand{\Tcell}{\Tallshipcell}
+\newcommand{\CCcell}{\CityChamberscell}
+
+\newcommand{\room}[1]{[\textsc{#1]}}
+\newcommand{\sess}[1]{\textbf{\textsc{#1}}}
+\newcommand{\presenter}[1]{\text{#1}}
+\newcommand{\aff}[1]{~\textit{#1}}
+\newcommand{\aside}[1]{\textsc{#1}}
+
+\newcommand{\joined}[2]{\multicolumn{2}{r}{#1} & #1 #2 & \multicolumn{2}{r}{#1}}

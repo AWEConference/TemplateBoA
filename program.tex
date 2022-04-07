@@ -1,0 +1,115 @@
+\documentclass[8pt,british]{extreport}
+%
+% Airborne Wind Energy Conference 2015
+% Book of Abstracts
+%
+% Editors:   Roland Schmehl, Oliver Tulloch
+% Assistant: Navi Rajan
+% Layout:    derived from the layout of the AWEC 2013 book of abstracts, by Birte Leisten, einnull.berlin Printproduktion
+%
+\pdfminorversion=4 % required to get the PDF opening in acrobat reader
+% Page layout with circumferential bleed of 3 mm
+\usepackage[table]{xcolor}
+\usepackage{calc}
+\usepackage{tikz}
+\usepackage{babel}
+\usepackage[useregional,showdow]{datetime2}
+\DTMlangsetup[en-GB]{ord=omit}
+\usepackage[%
+papersize={210mm,297mm},
+inner=8mm,
+outer=8mm,
+top=8mm,
+bottom=8mm,
+footskip=0mm]{geometry}
+
+\usetikzlibrary{calc}
+
+% Document font
+\usepackage[default,tabular]{sourcesanspro}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[official]{eurosym}
+\usepackage{amsmath,amssymb}
+\usepackage{sansmath}
+\sansmath
+\pagestyle{plain}
+
+\usepackage{multicol}
+\setlength{\columnsep}{5mm}
+\usepackage{multirow}
+
+\usepackage{graphicx}
+\usepackage{parskip}
+\setlength{\parskip}{0pt} % 1ex plus 0.5ex minus 0.2ex}
+\setlength{\parindent}{0pt}
+\usepackage{import}
+
+\usepackage[colorlinks,
+	          urlcolor=blue,
+			      citecolor=black,
+			      linkcolor=blue,
+			      bookmarks=false,
+	          hypertexnames=true]{hyperref}	% for printing add: hidelinks=true
+\hypersetup{pdfauthor={Roland Schmehl},
+            pdfsubject={Airborne Wind Energy},
+            pdftitle={Airborne Wind Energy Conference 2019 Program},
+            pdfkeywords={Airborne Wind Energy} {Kite Power} {AWEC} {2019} {Airborne Wind Energy Conference} {Glasgow} {Strathclyde} {University} {Technology} {Germany} {AWESCO} {Makani} {Ampyx} {Enerkite} {TwingTec} {eKite} {enerate}}
+
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=*} % left align list items
+\setlist[enumerate]{leftmargin=*} % left align list items
+
+
+\definecolor{darkgray}{gray}{0.3}
+% commands for comments or todo notices
+\newcommand{\ptitle}[1]%
+{% comment out following line to remove all comments in document
+%\newline\textcolor{darkgray}{#1}
+%\newline\itshape\textcolor{black}{#1}
+}%
+\newcommand{\ppage}[1]%
+{% comment out following line to remove all comments in document
+%#1
+}%
+
+\begin{document}
+\subimport{schedule/}{scheduleDefinitions.tex}
+\newcommand{\talk}[1]{\newline \small #1 \vspace{.08cm} \normalsize}
+\newcommand{\pagelabel}{}
+\newcommand{\onlyBook}[1]{}
+\newcommand{\onlyProgram}[1]{#1}
+
+\pagenumbering{gobble}
+\subimport{program/}{cover.tex}
+\pagenumbering{arabic}
+
+\subimport{program/}{preface.tex}
+\vfill
+\subimport{program/}{sponsorlogos.tex}
+\clearpage
+
+
+\begin{centering}
+\clearpage
+\subimport{schedule/}{scheduleMonday.tex}
+\subimport{schedule/}{scheduleTuesday.tex}
+\clearpage
+\subimport{schedule/}{scheduleWednesday.tex}
+\clearpage
+\end{centering}
+
+\textbf{\Large Floorplan of conference building}\\[.2cm]
+\includegraphics[width=\textwidth,trim={0 0 0 10cm},clip]{photopages/figures/floorplan_building.pdf}
+
+\subimport{program/}{programchanges.tex}
+
+\subimport{program/}{extrainfo.tex}
+
+\subimport{program/}{localinfo.tex}
+\clearpage
+
+\textbf{\Large Map of Glasgow and conference locations}\\[.2cm]
+\includegraphics[width=\textwidth,trim={0 0 0 3cm},clip]{photopages/figures/floorplan_city.pdf}
+
+\end{document}
